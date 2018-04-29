@@ -11,8 +11,33 @@ class AcgPage extends StatefulWidget {
 }
 
 class _AcgPageState extends State<AcgPage> {
-  
 
+  /// 下载
+  void handleDownload(String uri) {
+    print('下载 $uri');
+  }
+
+  /// 打开下载页面
+  void hanldeTap(String uri) {
+    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+      return new Container(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new CachedNetworkImage(
+                    imageUrl: uri,
+                    placeholder: new CircularProgressIndicator(),
+                    errorWidget: new Icon(Icons.error),
+                  ),
+            new RaisedButton(
+                onPressed: ()=>handleDownload(uri),
+                child: new Text('下载')
+            )
+          ],
+        ),
+      );
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +48,7 @@ class _AcgPageState extends State<AcgPage> {
           case ConnectionState.none:
           case ConnectionState.waiting:
             return new Text('loading...');
-           
+
           default:
             if (snapshot.hasError){
               // return new Text('Error: ${snapshot.error}');
@@ -45,14 +70,20 @@ class _AcgPageState extends State<AcgPage> {
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 4.0,
       padding: const EdgeInsets.all(4.0),
-      children: new List<CachedNetworkImage>.generate(
+      children: new List<Widget>.generate(
         eee.length,
-        (a) => new CachedNetworkImage(
-              imageUrl: "https://ab16-1256318515.cos.ap-chengdu.myqcloud.com/" +
-                  eee[a],
-              placeholder: new CircularProgressIndicator(),
-              errorWidget: new Icon(Icons.error),
-            ),
+        (a) => new GestureDetector(
+          onTap: (){
+            hanldeTap("https://ab16-1256318515.cos.ap-chengdu.myqcloud.com/" +
+                    eee[a]);
+          },
+          child: new CachedNetworkImage(
+                imageUrl: "https://ab16-1256318515.cos.ap-chengdu.myqcloud.com/" +
+                    eee[a],
+                placeholder: new CircularProgressIndicator(),
+                errorWidget: new Icon(Icons.error),
+              ),
+        ),
       ),
     );
   }
