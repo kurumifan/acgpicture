@@ -5,6 +5,11 @@ import './acg_page.dart';
 import './avatar_page.dart';
 
 
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'package:xml/xml.dart' as xml;
+
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => new _HomePageState();
@@ -23,6 +28,7 @@ class _HomePageState extends State<HomePage> {
     _showBottomSheetCallback = _showBottomSheet;
   }
 
+/// 关于图片
   void _showBottomSheet() {
     setState(() { // disable the button
       _showBottomSheetCallback = null;
@@ -56,9 +62,60 @@ class _HomePageState extends State<HomePage> {
 
 
 
+/// xml接口
+  Future<List<String>> getXml() async {
+    http.Response response = await http.get(
+      Uri.encodeFull("https://ab16-1256318515.cos.ap-chengdu.myqcloud.com"),
+    );
+
+    var keys = xml.parse(response.body).findAllElements('Key');
+    print('成功获取xml');
+
+    return keys.map((node) => node.text).toList();
+
+  }
+
+
+
+  var pics123;
+
+
+Widget xmlOK(BuildContext context, AsyncSnapshot snapshot){
+  List<String> pics = snapshot.data;
+  pics123 = pics;
+  // return new Center(child:new Icon(Icons.departure_board));
+  return new Row( mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[new Icon(Icons.insert_emoticon),new Icon(Icons.insert_emoticon),new Icon(Icons.insert_emoticon)],);
+}
+
+
 
   @override
   Widget build(BuildContext context) {
+
+var futureBuilder = new FutureBuilder(
+      future: getXml(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            // return new Icon(Icons.departure_board);
+          return new Row( mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[new Icon(Icons.departure_board),new Icon(Icons.departure_board),new Icon(Icons.departure_board)],);
+
+          default:
+            if (snapshot.hasError){
+              // return new Text('Error: ${snapshot.error}');
+              print('${snapshot.error}');
+              return new Text('Error');}
+            else
+              return xmlOK(context, snapshot);
+        }
+      },
+    );
+
+
+
+
+
     return new Scaffold(
       key: _scaffoldKey,
       floatingActionButton: new FlatButton(child: new Text('关于图片',style: new TextStyle(color: Colors.deepOrange,),),onPressed: _showBottomSheetCallback, padding: new EdgeInsetsDirectional.fromSTEB(5.0, 20.0, 5.0, 35.0), ),
@@ -73,26 +130,30 @@ class _HomePageState extends State<HomePage> {
               color: Colors.blueAccent,
               onPressed: () {
                 Navigator.of(context).push(new MaterialPageRoute(
-                builder: (BuildContext context) => new AcgPage()));
+                builder: (BuildContext context) => new AcgPage(pics33:pics123)));
               },
             ),
-            new Padding(padding: new EdgeInsets.all(7.0),),
+
+            new Divider(),
+            // new Center(child: new Row( mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[futureBuilder,futureBuilder,futureBuilder],)),
+            new Center(child: futureBuilder,),
+            new Divider(),
+            // new Padding(padding: new EdgeInsets.all(7.0),),
             new Image.asset('img/acgpics.png', scale: 5.0),
-            new Padding(padding: new EdgeInsets.all(6.0)),
-           
-            
-            
-                new RaisedButton(
+            // new Padding(padding: new EdgeInsets.all(6.0)),
+            new RaisedButton(
                 child: new Text('头像'),
                 color: Colors.blueAccent,
                 onPressed: () {
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (BuildContext context) => new MyHomePage()));
+                      builder: (BuildContext context) => new AvatarPage(imgs:pics123)));
                 },
             ),
-             
-          ]
-       
-     ) ));
+           ]
+        ) ));
   }
+
+
+
+
 }

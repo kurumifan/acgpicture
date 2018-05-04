@@ -1,81 +1,77 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
 
-class MyApp extends StatelessWidget {
+
+
+class AvatarPage extends StatefulWidget {
+
+ final List<String> imgs;
+
+ AvatarPage({Key key,this.imgs}) :super(key:key);
+  
+
+
   @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: new MyHomePage(),
-    );
-  }
+  _AvatarPageState createState() => new _AvatarPageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
+class _AvatarPageState extends State<AvatarPage> {
 
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    var futureBuilder = new FutureBuilder(
-      future: _getData(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-          case ConnectionState.waiting:
-            return new Text('loading...');
-          default:
-            if (snapshot.hasError)
-              return new Text('Error: ${snapshot.error}');
-            else
-              return createListView(context, snapshot);
-        }
-      },
-    );
-
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Home Page"),
-      ),
-      body: futureBuilder,
-    );
-  }
-
-  Future<List<String>> _getData() async {
-    var values = new List<String>();
-    values.add("111");
-    values.add("222");
-    values.add("333");
-
-    //throw new Exception("Danger Will Robinson!!!");
-
-    await new Future.delayed(new Duration(seconds: 5));
-
-    return values;
-  }
-
-  Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
-    List<String> values = snapshot.data;
-    return new ListView.builder(
-        itemCount: values.length,
-        itemBuilder: (BuildContext context, int index) {
-          return new Column(
-            children: <Widget>[
-              new ListTile(
-                title: new Text(values[index]),
+ @override
+  Widget build(BuildContext context){
+        return new Scaffold(
+          body: new Center(
+            child: new  GridView.extent(
+      maxCrossAxisExtent: 160.0,
+      mainAxisSpacing: 4.0,
+      crossAxisSpacing: 4.0,
+      padding: const EdgeInsets.all(4.0),
+      children: new List<Widget>.generate(
+        widget.imgs.length,
+        (a) => new  GestureDetector(
+            onTap: (){
+            hanldeTap("https://ab16-1256318515.cos.ap-chengdu.myqcloud.com/" +
+                    widget.imgs[a]);
+          },
+          child: new CachedNetworkImage(
+                imageUrl: "https://ab16-1256318515.cos.ap-chengdu.myqcloud.com/" +
+                    widget.imgs[a],
+                placeholder: new CircularProgressIndicator(),
+                errorWidget: new Icon(Icons.error),
               ),
-              new Divider(height: 2.0,),
-            ],
-          );
-        },
-    );
+        ),
+        )
+        )
+          )
+        );
   }
-}
+
+    /// 打开下载页面
+  void hanldeTap(String uri) {
+    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+      return new Center(       
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new CachedNetworkImage(
+                    imageUrl: uri,
+                    placeholder: new CircularProgressIndicator(),
+                    errorWidget: new Icon(Icons.error),
+                  ),
+            // new RaisedButton(
+            //     onPressed: ()=>handleDownload(uri),
+            //     child: new Text('下载')
+            // )
+            // new FlatButton(
+            //   onPressed: ()=>handleDownload(uri),
+            //    child: new Icon(Icons.access_alarm),
+            // )
+          ],
+        ),
+      );
+    }));
+  }
+
+
+} 

@@ -6,22 +6,31 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 
 class AcgPage extends StatefulWidget {
+
+final List<String> pics33;
+
+ AcgPage({Key key, this.pics33}) : super(key:key);
+  
   @override
   _AcgPageState createState() => new _AcgPageState();
 }
 
+
+
 class _AcgPageState extends State<AcgPage> {
+
 
   /// 下载
   void handleDownload(String uri) {
     print('下载 $uri');
+
+ 
   }
 
   /// 打开下载页面
   void hanldeTap(String uri) {
     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-      return new Center(
-       
+      return new Center(       
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -43,6 +52,7 @@ class _AcgPageState extends State<AcgPage> {
       );
     }));
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +88,7 @@ class _AcgPageState extends State<AcgPage> {
       children: new List<Widget>.generate(
         imgs.length,
         (a) => new GestureDetector(
-          onTap: (){
+            onTap: (){
             hanldeTap("https://ab16-1256318515.cos.ap-chengdu.myqcloud.com/" +
                     imgs[a]);
           },
@@ -93,6 +103,9 @@ class _AcgPageState extends State<AcgPage> {
     );
   }
 
+
+
+/// 获取xml接口中的图片地址
   Future<List<String>> getXml() async {
     http.Response response = await http.get(
       Uri.encodeFull("https://ab16-1256318515.cos.ap-chengdu.myqcloud.com"),
