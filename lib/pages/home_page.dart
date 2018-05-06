@@ -62,38 +62,48 @@ class _HomePageState extends State<HomePage> {
 
 
 
-/// xml接口
-  Future<List<String>> getXml() async {
+/// 动漫图片 xml接口
+  Future<List<String>> getXmlACG() async {
     http.Response response = await http.get(
       Uri.encodeFull("https://ab16-1256318515.cos.ap-chengdu.myqcloud.com"),
     );
-
     var keys = xml.parse(response.body).findAllElements('Key');
     print('成功获取xml');
-
     return keys.map((node) => node.text).toList();
-
   }
-
-
-
-  var pics123;
-
-
-Widget xmlOK(BuildContext context, AsyncSnapshot snapshot){
+ var pics123;
+Widget getXmlACGok(BuildContext context, AsyncSnapshot snapshot){
   List<String> pics = snapshot.data;
   pics123 = pics;
   // return new Center(child:new Icon(Icons.departure_board));
   return new Row( mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[new Icon(Icons.insert_emoticon),new Icon(Icons.insert_emoticon),new Icon(Icons.insert_emoticon)],);
 }
 
+///头像 xml接口
+  Future<List<String>> getXmlAA() async {
+    http.Response response = await http.get(
+      Uri.encodeFull("https://ab16-1256318515.cos.ap-chengdu.myqcloud.com"),
+    );
+    var keys = xml.parse(response.body).findAllElements('Key');
+    print('成功获取xml');
+    return keys.map((node) => node.text).toList();
+  }
+  var aa123;
+Widget getXmlAAok(BuildContext context, AsyncSnapshot snapshot){
+  List<String> aa = snapshot.data;
+  aa123 = aa;
+  // return new Center(child:new Icon(Icons.departure_board));
+  return new Row( mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[new Icon(Icons.insert_emoticon),new Icon(Icons.insert_emoticon),new Icon(Icons.insert_emoticon)],);
+}
 
 
   @override
   Widget build(BuildContext context) {
 
-var futureBuilder = new FutureBuilder(
-      future: getXml(),
+
+///动漫图片的builder
+var futureBuilderACG = new FutureBuilder(
+      future: getXmlACG(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -107,7 +117,28 @@ var futureBuilder = new FutureBuilder(
               print('${snapshot.error}');
               return new Text('Error');}
             else
-              return xmlOK(context, snapshot);
+              return getXmlACGok(context, snapshot);
+        }
+      },
+    );
+
+///头像的builder
+var futureBuilderAA = new FutureBuilder(
+      future: getXmlACG(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            // return new Icon(Icons.departure_board);
+          return new Row( mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[new Icon(Icons.departure_board),new Icon(Icons.departure_board),new Icon(Icons.departure_board)],);
+
+          default:
+            if (snapshot.hasError){
+              // return new Text('Error: ${snapshot.error}');
+              print('${snapshot.error}');
+              return new Text('Error');}
+            else
+              return getXmlAAok(context, snapshot);
         }
       },
     );
@@ -130,30 +161,26 @@ var futureBuilder = new FutureBuilder(
               color: Colors.blueAccent,
               onPressed: () {
                 Navigator.of(context).push(new MaterialPageRoute(
-                builder: (BuildContext context) => new AcgPage(pics33:pics123)));
+                builder: (BuildContext context) => new AcgPage(imgs:pics123)));
               },
             ),
 
             new Divider(),
-            // new Center(child: new Row( mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[futureBuilder,futureBuilder,futureBuilder],)),
-            new Center(child: futureBuilder,),
+            new Center(child: futureBuilderACG,),
+            new Center(child: futureBuilderAA,),
             new Divider(),
             // new Padding(padding: new EdgeInsets.all(7.0),),
             new Image.asset('img/acgpics.png', scale: 5.0),
-            // new Padding(padding: new EdgeInsets.all(6.0)),
+            new Padding(padding: new EdgeInsets.all(6.0)),
             new RaisedButton(
                 child: new Text('头像'),
                 color: Colors.blueAccent,
                 onPressed: () {
                   Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (BuildContext context) => new AvatarPage(imgs:pics123)));
+                      builder: (BuildContext context) => new AvatarPage(imgs:aa123)));
                 },
             ),
            ]
         ) ));
   }
-
-
-
-
 }

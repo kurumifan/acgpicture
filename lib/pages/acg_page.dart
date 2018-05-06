@@ -7,9 +7,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class AcgPage extends StatefulWidget {
 
-final List<String> pics33;
+final List<String> imgs;
 
- AcgPage({Key key, this.pics33}) : super(key:key);
+ AcgPage({Key key, this.imgs}) : super(key:key);
   
   @override
   _AcgPageState createState() => new _AcgPageState();
@@ -54,67 +54,32 @@ class _AcgPageState extends State<AcgPage> {
   }
 
 
-  @override
-  Widget build(BuildContext context) {
-    var futureBuilder = new FutureBuilder(
-      future: getXml(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-          case ConnectionState.waiting:
-            return new Text('loading...');
-
-          default:
-            if (snapshot.hasError){
-              // return new Text('Error: ${snapshot.error}');
-              print('${snapshot.error}');
-              return new Text('Error');}
-            else
-              return createListImage(context, snapshot);
-        }
-      },
-    );
-
-    return new Scaffold(body: new Center(child: futureBuilder));
-  }
-
-  Widget createListImage(BuildContext context, AsyncSnapshot snapshot) {
-    List<String> imgs = snapshot.data;
-    return new GridView.extent(
+ @override
+  Widget build(BuildContext context){
+        return new Scaffold(
+          body: new Center(
+            child: new  GridView.extent(
       maxCrossAxisExtent: 160.0,
       mainAxisSpacing: 4.0,
       crossAxisSpacing: 4.0,
       padding: const EdgeInsets.all(4.0),
       children: new List<Widget>.generate(
-        imgs.length,
-        (a) => new GestureDetector(
+        widget.imgs.length,
+        (a) => new  GestureDetector(
             onTap: (){
             hanldeTap("https://ab16-1256318515.cos.ap-chengdu.myqcloud.com/" +
-                    imgs[a]);
+                    widget.imgs[a]);
           },
           child: new CachedNetworkImage(
                 imageUrl: "https://ab16-1256318515.cos.ap-chengdu.myqcloud.com/" +
-                    imgs[a],
+                    widget.imgs[a],
                 placeholder: new CircularProgressIndicator(),
                 errorWidget: new Icon(Icons.error),
               ),
         ),
-      ),
-    );
-  }
-
-
-
-/// 获取xml接口中的图片地址
-  Future<List<String>> getXml() async {
-    http.Response response = await http.get(
-      Uri.encodeFull("https://ab16-1256318515.cos.ap-chengdu.myqcloud.com"),
-    );
-
-    var keys = xml.parse(response.body).findAllElements('Key');
-    print('成功获取xml');
-
-    return keys.map((node) => node.text).toList();
-
+        )
+        )
+          )
+        );
   }
 }
