@@ -50,28 +50,38 @@ class _AvatarPageState extends State<AvatarPage> {
     /// 打开下载页面
   void hanldeTap(String uri) {
     Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
-      return new Center(       
-        child: new Column(
+      return new Container(   
+        color: Colors.white,
+
+         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new CachedNetworkImage(
+
+            new Expanded(child: 
+            new GestureDetector(
+              onTap:(){ Offset(3.0,30.0);print('123');},
+              // onScaleUpdate: ,
+              child: new CachedNetworkImage(
                     imageUrl: uri,
                     placeholder: new CircularProgressIndicator(),
                     errorWidget: new Icon(Icons.error),
+                  ), ), ),
+
+                new Padding(padding: new EdgeInsets.all(2.0),),
+                  new RaisedButton(
+                    child: new Text('下载'),
+                    onPressed:abc,
                   ),
-            // new RaisedButton(
-            //     onPressed: ()=>handleDownload(uri),
-            //     child: new Text('下载')
-            // )
-            // new FlatButton(
-            //   onPressed: ()=>handleDownload(uri),
-            //    child: new Icon(Icons.access_alarm),
-            // )
+               new Padding(padding: new EdgeInsets.all(2.0),)
           ],
-        ),
+         )
       );
     }));
   }
+
+void abc(){
+  print('暂时不知道怎么下载');
+}
 
 
 } 

@@ -149,14 +149,23 @@ var futureBuilderAA = new FutureBuilder(
 
     return new Scaffold(
       key: _scaffoldKey,
-      floatingActionButton: new FlatButton(child: new Text('关于图片',style: new TextStyle(color: Colors.deepOrange,),),onPressed: _showBottomSheetCallback, padding: new EdgeInsetsDirectional.fromSTEB(5.0, 20.0, 5.0, 35.0), ),
-            body: new Center(
-            child: new Column(
+      // floatingActionButton: new FlatButton(child: new Text('关于图片',style: new TextStyle(color: Colors.deepOrange,),),onPressed: _showBottomSheetCallback, padding: new EdgeInsetsDirectional.fromSTEB(5.0, 20.0, 5.0, 35.0), ),
+
+      body: Center(
+
+         child:  new Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Image.asset('img/avatarbtn.jpg',scale: 3.0),
-            new Padding(padding: new EdgeInsets.all(6.0)),
-            new RaisedButton(
+         mainAxisSize: MainAxisSize.max,
+           children: <Widget>[
+
+            
+           new Padding(padding: new EdgeInsets.all(2.0)),
+
+           new Expanded(child:  new Image.asset('img/avatarbtn.jpg',scale: 3.0), ),
+
+           new Padding(padding: new EdgeInsets.all(2.0),),
+
+          new RaisedButton(
               child: new Text('动漫图片',style: new TextStyle(),),
               color: Colors.blueAccent,
               onPressed: () {
@@ -164,15 +173,28 @@ var futureBuilderAA = new FutureBuilder(
                 builder: (BuildContext context) => new AcgPage(imgs:pics123)));
               },
             ),
+        
+          //  new Padding(padding: new EdgeInsets.all(0.5)),
+            
+           new Divider(),
 
-            new Divider(),
-            new Center(child: futureBuilderACG,),
-            new Center(child: futureBuilderAA,),
-            new Divider(),
+           new Center(child: futureBuilderACG,),
+
+           new RaisedButton(
+             child: new Text('关于图片'),
+           color: Colors.deepOrange,
+           onPressed: _showBottomSheetCallback,
+           ),
+           
+           new Center(child: futureBuilderAA,),
+
+           new Divider(),
             // new Padding(padding: new EdgeInsets.all(7.0),),
-            new Image.asset('img/acgpics.png', scale: 5.0),
-            new Padding(padding: new EdgeInsets.all(6.0)),
-            new RaisedButton(
+           new Expanded(child:new Image.asset('img/acgpics.png', scale: 5.0),),
+
+           new Padding(padding: new EdgeInsets.all(2.0)),
+
+           new RaisedButton(
                 child: new Text('头像'),
                 color: Colors.blueAccent,
                 onPressed: () {
@@ -180,7 +202,19 @@ var futureBuilderAA = new FutureBuilder(
                       builder: (BuildContext context) => new AvatarPage(imgs:aa123)));
                 },
             ),
+
+           new Padding(padding: new EdgeInsets.all(2.0)),
+
+
+
            ]
-        ) ));
+        ) 
+          
+
+
+
+
+      )
+    );
   }
 }
