@@ -6,6 +6,6 @@ import './pages/home_page.dart';
 
 void main(){
   runApp(new MaterialApp(
-    home:new HomePage(),
+    home:new HomePage(),        
   ));
 }

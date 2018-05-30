@@ -9,9 +9,9 @@ dependencies:
 
   xml: ^3.0.0  
 
-  cached_network_image: "^0.4.0"
-  
-  image_picker: "^0.4.1"
+  cached_network_image: "^0.4.0" 
+
+  firebase_admob: "^0.5.4+1"
     
 
   # The following adds the Cupertino Icons font to your application.
@@ -35,10 +35,11 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - img/123.png
-    - img/acgpics.png
+  assets:   
+    - img/acgpics.jpg
     - img/avatarbtn.jpg
+    - img/picloading.jpg
+    - img/aaloading.jpg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
