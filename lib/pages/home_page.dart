@@ -11,6 +11,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:xml/xml.dart' as xml;
 
+import '../new/sweethome.dart';
+
 final String appId = Platform.isAndroid
     ? 'ca-app-pub-7280036561880717~1416504824'
     : 'ca-app-pub-7280036561880717~8578563561';
@@ -82,9 +84,9 @@ class _HomePageState extends State<HomePage> {
     return new Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        new Icon(Icons.insert_emoticon),
-        new Icon(Icons.insert_emoticon),
-        new Icon(Icons.insert_emoticon)
+        const Icon(Icons.insert_emoticon),
+        const Icon(Icons.insert_emoticon),
+        const Icon(Icons.insert_emoticon)
       ],
     );
   }
@@ -106,9 +108,9 @@ class _HomePageState extends State<HomePage> {
     return new Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        new Icon(Icons.insert_emoticon),
-        new Icon(Icons.insert_emoticon),
-        new Icon(Icons.insert_emoticon)
+        const Icon(Icons.insert_emoticon),
+        const Icon(Icons.insert_emoticon),
+        const Icon(Icons.insert_emoticon)
       ],
     );
   }
@@ -126,9 +128,9 @@ class _HomePageState extends State<HomePage> {
             return new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new Icon(Icons.departure_board),
-                new Icon(Icons.departure_board),
-                new Icon(Icons.departure_board)
+                const Icon(Icons.departure_board),
+                const Icon(Icons.departure_board),
+                const Icon(Icons.departure_board)
               ],
             );
 
@@ -154,9 +156,9 @@ class _HomePageState extends State<HomePage> {
             return new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new Icon(Icons.departure_board),
-                new Icon(Icons.departure_board),
-                new Icon(Icons.departure_board)
+                const Icon(Icons.departure_board),
+                const Icon(Icons.departure_board),
+                const Icon(Icons.departure_board)
               ],
             );
 
@@ -191,9 +193,9 @@ class _HomePageState extends State<HomePage> {
               ),
 
               new RaisedButton(
-                child: new Text(
+                child: const Text(
                   '动漫图片',
-                  style: new TextStyle(),
+                  style: const TextStyle(),
                 ),
                 color: Colors.blueAccent,
                 onPressed: () {
@@ -206,21 +208,43 @@ class _HomePageState extends State<HomePage> {
               ),
 
               //  new Padding(padding: new EdgeInsets.all(0.5)),
-
-              new Divider(),
+              ///横线
+              const Divider(),
 
               new Center(
                 child: futureBuilderACG,
               ),
 
-              new Center(
-                child: new RaisedButton(
-                  child: new Text('关于图片'),
+              ///中间一排按钮
+              new Row(         
+                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,        
+                children: <Widget>[                  
+                  ///甜蜜屋 跳转 按钮
+                new RaisedButton(
+                  child: const Text('甜蜜屋'),
+                  color: Colors.pinkAccent,
+                  onPressed: () {  
+                       Navigator.of(context).push(new MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              new SweetHome()));}
+                ),
+                ///关于图片 按钮
+                  new RaisedButton(
+                  child: const Text('关于图片'),
                   color: Colors.deepOrange,
                   onPressed: _showBottomSheetCallback,
                 ),
+                ///支持一下 按钮
+                  new RaisedButton(
+                  child: const Text('支持一下'),
+                  color: Colors.cyan,
+                  onPressed: _showBottomSheetCallback,
+                ),
+              
+                ],
               ),
 
+              ///三个笑脸 代表已经获取到xml
               new Center(
                 child: futureBuilderAA,
               ),
@@ -231,10 +255,11 @@ class _HomePageState extends State<HomePage> {
                 child: new Image.asset('img/avatarbtn.jpg', scale: 5.0),
               ),
 
-              new Padding(padding: new EdgeInsets.all(2.0)),
+              new Padding(padding: const EdgeInsets.all(2.0)),
 
+              ///头像 按钮
               new RaisedButton(
-                child: new Text('头像'),
+                child: const Text('头像'),
                 color: Colors.blueAccent,
                 onPressed: () {
                   pics123 == null
@@ -244,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                               new AvatarPage(imgs: aa123)));
                 },
               ),
-              new Padding(padding: new EdgeInsets.all(2.0)),
+              new Padding(padding: const EdgeInsets.all(2.0)),
             ])));
   }
 }

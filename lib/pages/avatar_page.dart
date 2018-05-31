@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 
 import 'ad_page.dart';
 
+import 'dart:io';
+
 final String aaaxml = 'https://aaaa-1256318515.cos.ap-chengdu.myqcloud.com/';
 
 class AvatarPage extends StatefulWidget {
@@ -44,15 +46,15 @@ class _AvatarPageState extends State<AvatarPage> {
           Navigator.pop(context);
         },
         child: Scaffold(
-            body: new Center(
-                child: new GridView.extent(
+            body:  Center(
+                child:  GridView.extent(
                     maxCrossAxisExtent: 160.0,
                     mainAxisSpacing: 4.0,
                     crossAxisSpacing: 4.0,
                     padding: const EdgeInsets.all(4.0),
                     children: new List<Widget>.generate(
                       widget.imgs.length,
-                      (a) => new GestureDetector(
+                      (a) =>  GestureDetector(
                             onTap: () {
                               hanldeTap(aaaxml + widget.imgs[a]);
                               bannerAd?.dispose();
@@ -62,7 +64,7 @@ class _AvatarPageState extends State<AvatarPage> {
                               imageUrl: aaaxml + widget.imgs[a],
                               // placeholder: new CircularProgressIndicator(),
                               placeholder: Image.asset('img/aaloading.jpg'),
-                              errorWidget: new Icon(Icons.error),
+                              errorWidget: const Icon(Icons.error),
                             ),
                           ),
                     )))));
@@ -88,21 +90,21 @@ class _AvatarPageState extends State<AvatarPage> {
                   new Expanded(
                     child: new CachedNetworkImage(
                       imageUrl: uri,
-                      placeholder: new CircularProgressIndicator(),
-                      errorWidget: new Icon(Icons.error),
+                      placeholder: const CircularProgressIndicator(),
+                      errorWidget: const Icon(Icons.error),
                     ),
                   ),
-                  new Padding(
-                    padding: new EdgeInsets.all(2.0),
+                  const Padding(
+                    padding: const EdgeInsets.all(2.0),
                   ),
                   new RaisedButton(
-                    child: new Text('下载'),
+                    child: const Text('下载'),
                     onPressed: () {
                       _downloadImage(uri);
                     },
                   ),
-                  new Padding(
-                    padding: new EdgeInsets.all(2.0),
+                  const Padding(
+                    padding: const EdgeInsets.all(2.0),
                   )
                 ],
               )));
@@ -110,6 +112,6 @@ class _AvatarPageState extends State<AvatarPage> {
   }
 
   void _downloadImage(String url) {
-    platform.invokeMethod('downloadImage', url);
+   Platform.isAndroid ? platform.invokeMethod('downloadImage', url) : print('This is IOS！') ;
   }
 }
