@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'ad_page.dart';
 
-import 'dart:io';
+
 
 final String aaaxml = 'https://aaaa-1256318515.cos.ap-chengdu.myqcloud.com/';
 
@@ -34,7 +34,7 @@ class _AvatarPageState extends State<AvatarPage> {
     super.dispose();
   }
 
-  static const platform =
+ static const platform =
       const MethodChannel('samples.flutter.io/downloadimage');
 
   @override
@@ -45,16 +45,17 @@ class _AvatarPageState extends State<AvatarPage> {
           bannerAd = null;
           Navigator.pop(context);
         },
-        child: Scaffold(
-            body:  Center(
-                child:  GridView.extent(
+        child: new Scaffold(
+          appBar: new AppBar(),
+            body: new Center(
+                child: new GridView.extent(
                     maxCrossAxisExtent: 160.0,
                     mainAxisSpacing: 4.0,
                     crossAxisSpacing: 4.0,
-                    padding: const EdgeInsets.all(4.0),
+                    padding: new EdgeInsets.all(4.0),
                     children: new List<Widget>.generate(
                       widget.imgs.length,
-                      (a) =>  GestureDetector(
+                      (a) => new GestureDetector(
                             onTap: () {
                               hanldeTap(aaaxml + widget.imgs[a]);
                               bannerAd?.dispose();
@@ -64,7 +65,7 @@ class _AvatarPageState extends State<AvatarPage> {
                               imageUrl: aaaxml + widget.imgs[a],
                               // placeholder: new CircularProgressIndicator(),
                               placeholder: Image.asset('img/aaloading.jpg'),
-                              errorWidget: const Icon(Icons.error),
+                              errorWidget: new Icon(Icons.error),
                             ),
                           ),
                     )))));
@@ -84,27 +85,30 @@ class _AvatarPageState extends State<AvatarPage> {
           },
           child: new Container(
               color: Colors.white,
-              child: Column(
+              child: new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new Expanded(
-                    child: new CachedNetworkImage(
+                    child: new GestureDetector(
+                      onDoubleTap: (){Navigator.pop(context);},
+                     child: new CachedNetworkImage(
                       imageUrl: uri,
-                      placeholder: const CircularProgressIndicator(),
-                      errorWidget: const Icon(Icons.error),
+                      placeholder: new CircularProgressIndicator(),
+                      errorWidget: new Icon(Icons.error),
+                     )
                     ),
                   ),
-                  const Padding(
-                    padding: const EdgeInsets.all(2.0),
+                  new Padding(
+                    padding: new EdgeInsets.all(2.0),
                   ),
                   new RaisedButton(
-                    child: const Text('下载'),
+                    child: new Text('下载'),
                     onPressed: () {
                       _downloadImage(uri);
                     },
                   ),
-                  const Padding(
-                    padding: const EdgeInsets.all(2.0),
+                  new Padding(
+                    padding: new EdgeInsets.all(2.0),
                   )
                 ],
               )));
@@ -112,6 +116,6 @@ class _AvatarPageState extends State<AvatarPage> {
   }
 
   void _downloadImage(String url) {
-   Platform.isAndroid ? platform.invokeMethod('downloadImage', url) : print('This is IOS！') ;
+   platform.invokeMethod('downloadImage', url);
   }
 }

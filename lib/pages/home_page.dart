@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                   border: new Border(
                       top: new BorderSide(color: themeData.disabledColor))),
               child: new Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: new EdgeInsets.all(32.0),
                   child: new Text('图片均来自网络，如有侵权，请联系删除',
                       textAlign: TextAlign.center,
                       style: new TextStyle(
@@ -84,9 +84,9 @@ class _HomePageState extends State<HomePage> {
     return new Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const Icon(Icons.insert_emoticon),
-        const Icon(Icons.insert_emoticon),
-        const Icon(Icons.insert_emoticon)
+        new Icon(Icons.insert_emoticon),
+        new Icon(Icons.insert_emoticon),
+        new Icon(Icons.insert_emoticon)
       ],
     );
   }
@@ -108,9 +108,9 @@ class _HomePageState extends State<HomePage> {
     return new Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const Icon(Icons.insert_emoticon),
-        const Icon(Icons.insert_emoticon),
-        const Icon(Icons.insert_emoticon)
+        new Icon(Icons.insert_emoticon),
+        new Icon(Icons.insert_emoticon),
+        new Icon(Icons.insert_emoticon)
       ],
     );
   }
@@ -128,9 +128,9 @@ class _HomePageState extends State<HomePage> {
             return new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Icon(Icons.departure_board),
-                const Icon(Icons.departure_board),
-                const Icon(Icons.departure_board)
+                new Icon(Icons.departure_board),
+                new Icon(Icons.departure_board),
+                new Icon(Icons.departure_board)
               ],
             );
 
@@ -156,9 +156,9 @@ class _HomePageState extends State<HomePage> {
             return new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Icon(Icons.departure_board),
-                const Icon(Icons.departure_board),
-                const Icon(Icons.departure_board)
+                new Icon(Icons.departure_board),
+                new Icon(Icons.departure_board),
+                new Icon(Icons.departure_board)
               ],
             );
 
@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> {
         // floatingActionButton: new FlatButton(child: new Text('关于图片',style: new TextStyle(color: Colors.deepOrange,),),onPressed: _showBottomSheetCallback, padding: new EdgeInsetsDirectional.fromSTEB(5.0, 20.0, 5.0, 35.0), ),
 
         body: new Center(
-            child: new  Column(
+            child: new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
@@ -193,9 +193,9 @@ class _HomePageState extends State<HomePage> {
               ),
 
               new RaisedButton(
-                child: const Text(
+                child: new Text(
                   '动漫图片',
-                  style: const TextStyle(),
+                  style: new TextStyle(),
                 ),
                 color: Colors.blueAccent,
                 onPressed: () {
@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage> {
 
               //  new Padding(padding: new EdgeInsets.all(0.5)),
               ///横线
-              const Divider(),
+              new Divider(),
 
               new Center(
                 child: futureBuilderACG,
@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[                  
                   ///甜蜜屋 跳转 按钮
                 new RaisedButton(
-                  child: const Text('甜蜜屋'),
+                  child: new Text('甜蜜屋'),
                   color: Colors.pinkAccent,
                   onPressed: () {  
                        Navigator.of(context).push(new MaterialPageRoute(
@@ -230,13 +230,13 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ///关于图片 按钮
                   new RaisedButton(
-                  child: const Text('关于图片'),
+                  child: new Text('关于图片'),
                   color: Colors.deepOrange,
                   onPressed: _showBottomSheetCallback,
                 ),
                 ///支持一下 按钮
                   new RaisedButton(
-                  child: const Text('支持一下'),
+                  child: new Text('支持一下'),
                   color: Colors.cyan,
                   onPressed: _showBottomSheetCallback,
                 ),
@@ -255,11 +255,11 @@ class _HomePageState extends State<HomePage> {
                 child: new Image.asset('img/avatarbtn.jpg', scale: 5.0),
               ),
 
-              new Padding(padding: const EdgeInsets.all(2.0)),
+              new Padding(padding: new EdgeInsets.all(2.0)),
 
               ///头像 按钮
               new RaisedButton(
-                child: const Text('头像'),
+                child: new Text('头像'),
                 color: Colors.blueAccent,
                 onPressed: () {
                   pics123 == null
@@ -269,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                               new AvatarPage(imgs: aa123)));
                 },
               ),
-              new Padding(padding: const EdgeInsets.all(2.0)),
+              new Padding(padding: new EdgeInsets.all(2.0)),
             ])));
   }
 }

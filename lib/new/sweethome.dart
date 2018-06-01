@@ -70,7 +70,7 @@ class _SweetHomeState extends State<SweetHome> {
       },
       child: new Scaffold(
         appBar: new AppBar(
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           title: new Text('${_titles[_currentIndex]}'),
           centerTitle: true,
           backgroundColor: _colors[_currentIndex],
