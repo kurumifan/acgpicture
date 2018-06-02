@@ -22,7 +22,6 @@ class _AvatarPageState extends State<AvatarPage> {
   @override
   void initState() {
     super.initState();
-
     bannerAd = createBannerAd()
       ..load()
       ..show();
@@ -34,7 +33,7 @@ class _AvatarPageState extends State<AvatarPage> {
     super.dispose();
   }
 
- static const platform =
+ static const MethodChannel platform =
       const MethodChannel('samples.flutter.io/downloadimage');
 
   @override

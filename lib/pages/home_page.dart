@@ -264,7 +264,7 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   pics123 == null
                       ? () {}
-                      : Navigator.of(context).push(new MaterialPageRoute(
+                      : Navigator.of(context).push(new MaterialPageRoute(                       
                           builder: (BuildContext context) =>
                               new AvatarPage(imgs: aa123)));
                 },
@@ -273,3 +273,5 @@ class _HomePageState extends State<HomePage> {
             ])));
   }
 }
+
+
