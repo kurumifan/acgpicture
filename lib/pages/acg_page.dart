@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 
 import 'ad_page.dart';
 
-
 final String picsxml = "https://pics-1256318515.cos.ap-chengdu.myqcloud.com/";
 
 class AcgPage extends StatefulWidget {
@@ -59,7 +58,9 @@ class _AcgPageState extends State<AcgPage> {
                 children: <Widget>[
                   new Expanded(
                     child: new GestureDetector(
-                      onDoubleTap: (){Navigator.pop(context);},
+                      onDoubleTap: () {
+                        Navigator.pop(context);
+                      },
                       child: new CachedNetworkImage(
                         imageUrl: uri,
                         placeholder: new CircularProgressIndicator(),
@@ -85,7 +86,7 @@ class _AcgPageState extends State<AcgPage> {
   }
 
   void _downloadImage(String url) {
-    platform.invokeMethod('downloadImage', url) ;
+    platform.invokeMethod('downloadImage', url);
   }
 
   @override
@@ -97,8 +98,7 @@ class _AcgPageState extends State<AcgPage> {
           Navigator.pop(context);
         },
         child: new Scaffold(
-          appBar: new AppBar(
-          ),
+            appBar: new AppBar(),
             body: new Center(
                 child: new GridView.extent(
                     maxCrossAxisExtent: 160.0,
@@ -108,18 +108,17 @@ class _AcgPageState extends State<AcgPage> {
                     children: new List<Widget>.generate(
                       widget.imgs.length,
                       (a) => new GestureDetector(
-                            onTap: () {
-                              hanldeTap(picsxml + widget.imgs[a]);
-                              bannerAd?.dispose();
-                              bannerAd = null;
-                            },
-                            child: new CachedNetworkImage(
-                              imageUrl: picsxml + widget.imgs[a],
-                              // placeholder: new CircularProgressIndicator(),
-                              placeholder: new Image.asset('img/picloading.jpg'),
-                              errorWidget: new Icon(Icons.error),
-                            ),
-                          ),
+                          onTap: () {
+                            hanldeTap(picsxml + widget.imgs[a]);
+                            bannerAd?.dispose();
+                            bannerAd = null;
+                          },
+                          child: new CachedNetworkImage(
+                            imageUrl: picsxml + widget.imgs[a],
+                            // placeholder: new CircularProgressIndicator(),
+                            placeholder: new Image.asset('img/picloading.jpg'),
+                            errorWidget: new Icon(Icons.error),
+                          )),
                     )))));
   }
 }

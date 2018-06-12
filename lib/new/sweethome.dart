@@ -17,8 +17,9 @@ class _SweetHomeState extends State<SweetHome> {
 
   @override
   void initState() {
-    super.initState();
+    super.initState();    
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,57 +70,42 @@ class _SweetHomeState extends State<SweetHome> {
         Navigator.pop(context);
       },
       child: new Scaffold(
-        appBar: new AppBar(
-          automaticallyImplyLeading: true,
+        appBar: new PreferredSize(
+         
+            preferredSize: new Size(10.0, 50.0),
+            child: new AppBar(
+              automaticallyImplyLeading: true,
           title: new Text('${_titles[_currentIndex]}'),
           centerTitle: true,
           backgroundColor: _colors[_currentIndex],
+            )
+          
+          
         ),
         bottomNavigationBar: botNavBar,
         body: new Builder(
           builder: (BuildContext covariant) {
             switch (_currentIndex) {
-              case 0:
-                return new Scaffold(
-                    backgroundColor: Colors.black,
-                    body: new Center(
-                      child: new CachedNetworkImage(
-                        imageUrl:
-                            'http://sixbit.nos-eastchina1.126.net/ayase-min.png',
-                      ),
-                    ));
-
+              case 0:              
+                return ai();
+                
+                break;
               case 1:
-                return new Scaffold(
-                  appBar: new AppBar(
-                    title: new Text('这是什么鬼'),
-                  ),
-                  body: new Image.network(
-                      'http://optimizilla.com/images/optimizilla/logo.png'),
-                );
-
+                return moepic();                
+                break;
               case 2:
-                return new Container(
-                    height: 2000.0,
-                    width: 2000.0,
-                    child: new GestureDetector(
-                      onLongPress: () {
-                        print('这是长按');
-                      },
-                      child: new CachedNetworkImage(
-                        errorWidget: new Icon(Icons.error),
-                        placeholder: new Icon(Icons.save),
-                        imageUrl: 'http://sixbit.nos-eastchina1.126.net/3.png',
-                        fadeInDuration: new Duration(seconds: 3),
-                        fit: BoxFit.cover,
-                      ),
-                    ));
-
+                return touhou();
+                break;
               case 3:
-                return myinfo();
-
+                return myinfo(context);
+                break;
               default:
-                return new Center();
+                return new Center(
+                  child: new Text(
+                    '页面不见了',
+                    style: new TextStyle(fontSize: 30.0,color:Colors.red),
+                  ),
+                );
             }
           },
         ),
