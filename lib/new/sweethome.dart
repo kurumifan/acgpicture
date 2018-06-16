@@ -65,50 +65,44 @@ class _SweetHomeState extends State<SweetHome> {
       Colors.redAccent,
       Colors.blue
     ];
-    return new WillPopScope(
-      onWillPop: () {
-        Navigator.pop(context);
-      },
-      child: new Scaffold(
-        appBar: new PreferredSize(
-         
-            preferredSize: new Size(10.0, 50.0),
-            child: new AppBar(
-              automaticallyImplyLeading: true,
-          title: new Text('${_titles[_currentIndex]}'),
-          centerTitle: true,
-          backgroundColor: _colors[_currentIndex],
-            )
-          
-          
-        ),
-        bottomNavigationBar: botNavBar,
-        body: new Builder(
-          builder: (BuildContext covariant) {
-            switch (_currentIndex) {
-              case 0:              
-                return ai();
-                
-                break;
-              case 1:
-                return moepic();                
-                break;
-              case 2:
-                return touhou();
-                break;
-              case 3:
-                return myinfo(context);
-                break;
-              default:
-                return new Center(
-                  child: new Text(
-                    '页面不见了',
-                    style: new TextStyle(fontSize: 30.0,color:Colors.red),
-                  ),
-                );
-            }
-          },
-        ),
+    return new Scaffold(
+      appBar: new PreferredSize(
+       
+          preferredSize: new Size(10.0, 50.0),
+          child: new AppBar(
+            automaticallyImplyLeading: true,
+        title: new Text('${_titles[_currentIndex]}'),
+        centerTitle: true,
+        backgroundColor: _colors[_currentIndex],
+          )
+        
+        
+      ),
+      bottomNavigationBar: botNavBar,
+      body: new Builder(
+        builder: (BuildContext covariant) {
+          switch (_currentIndex) {
+            case 0:              
+              return ai();
+              break;
+            case 1:
+              return moepic();                
+              break;
+            case 2:
+              return touhou();
+              break;
+            case 3:
+              return myinfo(context);
+              break;
+            default:
+              return new Center(
+                child: new Text(
+                  '页面不见了',
+                  style: new TextStyle(fontSize: 30.0,color:Colors.red),
+                ),
+              );
+          }
+        },
       ),
     );
   }

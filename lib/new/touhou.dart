@@ -5,15 +5,15 @@ Widget touhou() {
   return new Container(
       height: 2000.0,
       width: 2000.0,
-      child: new GestureDetector(
+      child:  GestureDetector(
         onLongPress: () {
           print('这是长按');
         },
-        child: new CachedNetworkImage(
-          errorWidget: new Icon(Icons.error),
-          placeholder: new Icon(Icons.save),
+        child:  CachedNetworkImage(
+          errorWidget:  Icon(Icons.error),
+          placeholder:  Icon(Icons.save),
           imageUrl: 'http://sixbit.nos-eastchina1.126.net/3.png',
-          fadeInDuration: new Duration(seconds: 3),
+          fadeInDuration:  Duration(seconds: 3),
           fit: BoxFit.cover,
         ),
       ));

@@ -4,7 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter/services.dart';
 
-import 'ad_page.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'package:xml/xml.dart' as xml;
 
 final String picsxml = "https://pics-1256318515.cos.ap-chengdu.myqcloud.com/";
 
@@ -24,17 +27,29 @@ class _AcgPageState extends State<AcgPage> {
   @override
   void initState() {
     super.initState();
-
-    bannerAd = createBannerAd()
-      ..load()
-      ..show();
+    getXmlPics();
   }
 
   @override
   void dispose() {
-    myBanner?.dispose();
     super.dispose();
   }
+
+  List<String> _picslist;
+
+  Future<String> getXmlPics() async {
+    http.Response response2 = await http.get(
+      Uri.encodeFull(picsxml),
+    );
+    setState(() {
+      var keys2 = xml.parse(response2.body).findAllElements('Key');
+      _picslist = keys2.map((node) {
+        return node.text;
+      }).toList();
+    });
+    return 'Success!';
+  }
+
 
   static const platform =
       const MethodChannel('samples.flutter.io/downloadimage');
@@ -43,45 +58,37 @@ class _AcgPageState extends State<AcgPage> {
   void hanldeTap(String uri) {
     Navigator.push(context,
         new MaterialPageRoute(builder: (BuildContext context) {
-      return new WillPopScope(
-          onWillPop: () {
-            bannerAd ??= createBannerAd();
-            bannerAd
-              ..load()
-              ..show();
-            Navigator.pop(context);
-          },
-          child: new Container(
-              color: Colors.white,
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Expanded(
-                    child: new GestureDetector(
-                      onDoubleTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: new CachedNetworkImage(
-                        imageUrl: uri,
-                        placeholder: new CircularProgressIndicator(),
-                        errorWidget: new Icon(Icons.error),
-                      ),
-                    ),
+      return new Container(
+          color: Colors.white,
+          child:  Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+               Expanded(
+                child:  GestureDetector(
+                  onDoubleTap: () {
+                    Navigator.pop(context);
+                  },
+                  child:  CachedNetworkImage(
+                    imageUrl: uri,
+                    placeholder:  Center(child:  CircularProgressIndicator()),
+                    errorWidget:  Icon(Icons.error),
                   ),
-                  new Padding(
-                    padding: new EdgeInsets.all(2.0),
-                  ),
-                  new RaisedButton(
-                    child: new Text('下载'),
-                    onPressed: () {
-                      _downloadImage(uri);
-                    },
-                  ),
-                  new Padding(
-                    padding: new EdgeInsets.all(2.0),
-                  )
-                ],
-              )));
+                ),
+              ),
+               Padding(
+                padding:  EdgeInsets.all(2.0),
+              ),
+              new  RaisedButton(
+                child:  Text('下载'),
+                onPressed: () {
+                  _downloadImage(uri);
+                },
+              ),
+               Padding(
+                padding:  EdgeInsets.all(2.0),
+              )
+            ],
+          ));
     }));
   }
 
@@ -91,34 +98,31 @@ class _AcgPageState extends State<AcgPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new WillPopScope(
-        onWillPop: () {
-          bannerAd?.dispose();
-          bannerAd = null;
-          Navigator.pop(context);
-        },
-        child: new Scaffold(
-            appBar: new AppBar(),
-            body: new Center(
-                child: new GridView.extent(
-                    maxCrossAxisExtent: 160.0,
-                    mainAxisSpacing: 4.0,
-                    crossAxisSpacing: 4.0,
-                    padding: new EdgeInsets.all(4.0),
-                    children: new List<Widget>.generate(
-                      widget.imgs.length,
-                      (a) => new GestureDetector(
-                          onTap: () {
-                            hanldeTap(picsxml + widget.imgs[a]);
-                            bannerAd?.dispose();
-                            bannerAd = null;
-                          },
-                          child: new CachedNetworkImage(
-                            imageUrl: picsxml + widget.imgs[a],
-                            // placeholder: new CircularProgressIndicator(),
-                            placeholder: new Image.asset('img/picloading.jpg'),
-                            errorWidget: new Icon(Icons.error),
-                          )),
-                    )))));
+      return _picslist==null? new Scaffold(
+        body: new Center(child: new CircularProgressIndicator()),
+      ) : new Scaffold(
+        appBar: new AppBar(
+          title: Text('Picture'),
+        ),
+        body: new Center(
+            child: new GridView.extent(
+                maxCrossAxisExtent: 160.0,
+                mainAxisSpacing: 4.0,
+                crossAxisSpacing: 4.0,
+                padding: new EdgeInsets.all(4.0),
+                children: new List<Widget>.generate(
+                  _picslist.length,
+                  (a) => new GestureDetector(
+                      onTap: () {
+                        hanldeTap(picsxml + _picslist[a]);
+                      },
+                      child: new CachedNetworkImage(
+                        imageUrl: picsxml + _picslist[a],
+                        // placeholder: new CircularProgressIndicator(),
+                        placeholder: new Image.asset('img/picloading.jpg'),
+                        errorWidget: new Icon(Icons.error),
+                      )),
+                ))));
   }
 }
+
