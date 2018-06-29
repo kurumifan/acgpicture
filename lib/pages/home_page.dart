@@ -97,26 +97,32 @@ class _HomePageState extends State<HomePage> {
                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,        
                 children: <Widget>[                  
                   ///甜蜜屋 跳转 按钮
-                new RaisedButton(
-                  child: new Text('甜蜜屋'),
-                  color: Colors.pinkAccent,
-                  onPressed: () {  
-                       Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              new SweetHome()));}
+                new Expanded(
+                                  child: new RaisedButton(
+                    child: new Text('甜蜜屋'),
+                    color: Colors.pinkAccent,
+                    onPressed: () {  
+                         Navigator.of(context).push(new MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                new SweetHome()));}
+                  ),
                 ),
                 ///关于图片 按钮
-                  new RaisedButton(
-                  child: new Text('关于图片'),
-                  color: Colors.deepOrange,
-                  onPressed: _showBottomSheetCallback,
+                  new Expanded(
+                                      child: new RaisedButton(
+                    child: new Text('关于图片'),
+                    color: Colors.deepOrange,
+                    onPressed: _showBottomSheetCallback,
                 ),
+                  ),
                 ///支持一下 按钮
-                  new RaisedButton(
-                  child: new Text('支持一下'),
-                  color: Colors.cyan,
-                  onPressed: _showBottomSheetCallback,
+                  new Expanded(
+                                      child: new RaisedButton(
+                    child: new Text('支持一下'),
+                    color: Colors.cyan,
+                    onPressed: _showBottomSheetCallback,
                 ),
+                  ),
               
                 ],
               ),
